@@ -15,7 +15,7 @@ class Kirsche private constructor(
             farbe: String,
             groesse: Int,
         ): CreationResult {
-            val validationResult = validate(Kirsche::class) {
+            val validationResult = validate {
                 require("Name darf nicht leer sein") {
                     name.isNotBlank()
                 }
@@ -40,7 +40,7 @@ class Kirsche private constructor(
         }
     }
 
-    sealed class CreationResult : Validatable<Kirsche>
+    sealed class CreationResult : Validatable
     class Created(val kirsche: Kirsche) : CreationResult()
-    class Failure(override val errors: List<String>) : CreationResult(), Errors<Kirsche>
+    class Failure(override val errors: List<String>) : CreationResult(), Errors
 }

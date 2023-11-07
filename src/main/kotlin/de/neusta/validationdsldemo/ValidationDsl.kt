@@ -1,7 +1,5 @@
 package de.neusta.validationdsldemo
 
-import kotlin.reflect.KClass
-
 class ValidationService private constructor(
     private val errors: MutableList<String> = ArrayList()
 ) {
@@ -26,9 +24,9 @@ class ValidationService private constructor(
     class Error(val messages: List<String>) : ValidationResult()
 }
 
-class MultiValidationService<T> private constructor(
+class MultiValidationService private constructor(
     private val errors: MutableList<String> = ArrayList(),
-    private var result: T? = null
+    private var result: Any? = null
 ) {
     fun require(
         msg: String,
@@ -38,34 +36,34 @@ class MultiValidationService<T> private constructor(
     }
 
     fun requireNoErrors(
-        validatable: Validatable<T>
+        validatable: Validatable
     ) {
         when (validatable) {
-            is Errors<T> -> validatable.errors.forEach { errors.add(it) }
-            is Success<T> -> result = validatable.result
+            is Errors -> validatable.errors.forEach { errors.add(it) }
+            is Success -> result = validatable.result
         }
     }
 
     companion object {
-        fun <T : Any> validate(clazz: KClass<T>, block: MultiValidationService<T>.() -> Unit): ValidationResult<T> {
-            val multiValidationService = MultiValidationService<T>()
+        fun validate(block: MultiValidationService.() -> Unit): ValidationResult {
+            val multiValidationService = MultiValidationService()
             multiValidationService.apply(block)
             if (multiValidationService.errors.isEmpty()) return Successful(result = multiValidationService.result)
             return ErrorsOccurred(errors = multiValidationService.errors.toList())
         }
     }
 
-    interface Validatable<T>
+    interface Validatable
 
-    interface Errors<T> : Validatable<T> {
+    interface Errors : Validatable {
         val errors: List<String>
     }
 
-    interface Success<T> : Validatable<T> {
-        val result: T?
+    interface Success : Validatable {
+        val result: Any?
     }
 
-    sealed class ValidationResult<T>
-    class Successful<T>(val result: T?) : ValidationResult<T>(), Validatable<T>
-    class ErrorsOccurred<T>(val errors: List<String>) : ValidationResult<T>(), Validatable<T>
+    sealed class ValidationResult
+    class Successful(val result: Any?) : ValidationResult(), Validatable
+    class ErrorsOccurred(val errors: List<String>) : ValidationResult(), Validatable
 }

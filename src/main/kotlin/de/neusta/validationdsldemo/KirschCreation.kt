@@ -19,7 +19,7 @@ class KirschCreation {
             groesse = size,
         )
 
-        val validationResult = validate(Kirsche::class) {
+        val validationResult = validate {
             require("Kirsche existiert schon") {
                 !kirschRepository.existsByNameAndColor(name = name, color = color)
             }

@@ -15,8 +15,8 @@ fun main(args: Array<String>) {
     )
 
     val falscheKirsche = KirschCreation().createKirsche(
-        name = "Geile Kirsche",
-        color = "Rot",
+        name = "Superkirsche",
+        color = "rot",
         size = 0,
     )
 
