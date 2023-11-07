@@ -6,10 +6,10 @@ class ValidationService private constructor(
     private val errors: MutableList<String> = ArrayList()
 ) {
     fun require(
-        msg: String,
+        message: String,
         checker: () -> Boolean,
     ) {
-        if (!checker.invoke()) errors.add(msg)
+        if (!checker.invoke()) errors.add(message)
     }
 
     companion object {
