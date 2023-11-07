@@ -1,7 +1,7 @@
 package de.neusta.validationdsldemo
 
-import de.neusta.validationdsldemo.ValidationService.*
-import de.neusta.validationdsldemo.ValidationService.Companion.validate
+import de.neusta.validationdsldemo.MultiValidationService.*
+import de.neusta.validationdsldemo.MultiValidationService.Companion.validate
 
 class Kirsche private constructor(
     val name: String,

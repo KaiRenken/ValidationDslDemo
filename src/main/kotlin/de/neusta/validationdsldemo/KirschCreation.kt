@@ -1,8 +1,8 @@
 package de.neusta.validationdsldemo
 
-import de.neusta.validationdsldemo.ValidationService.Companion.validate
-import de.neusta.validationdsldemo.ValidationService.ErrorsOccurred
-import de.neusta.validationdsldemo.ValidationService.Successful
+import de.neusta.validationdsldemo.MultiValidationService.Companion.validate
+import de.neusta.validationdsldemo.MultiValidationService.ErrorsOccurred
+import de.neusta.validationdsldemo.MultiValidationService.Successful
 
 class KirschCreation {
 

@@ -1,8 +1,6 @@
 package de.neusta.validationdsldemo
 
 import de.neusta.validationdsldemo.ValidationService.Companion.validate
-import de.neusta.validationdsldemo.ValidationService.ErrorsOccurred
-import de.neusta.validationdsldemo.ValidationService.Successful
 
 class Birne private constructor(
     val name: String,
@@ -16,7 +14,7 @@ class Birne private constructor(
             farbe: String,
             groesse: Int,
         ): CreationResult {
-            val validationResult = validate(Birne::class) {
+            val validationResult = validate {
                 require("Name darf nicht leer sein") {
                     name.isNotBlank()
                 }
@@ -29,8 +27,8 @@ class Birne private constructor(
             }
 
             return when (validationResult) {
-                is ErrorsOccurred -> Failure(errors = validationResult.errors)
-                is Successful -> Created(
+                is ValidationService.Error -> Error(messages = validationResult.messages)
+                is ValidationService.Success -> Created(
                     birne = Birne(
                         name = name,
                         farbe = farbe,
@@ -43,5 +41,5 @@ class Birne private constructor(
 
     sealed class CreationResult
     class Created(val birne: Birne) : CreationResult()
-    class Failure(val errors: List<String>) : CreationResult()
+    class Error(val messages: List<String>) : CreationResult()
 }
