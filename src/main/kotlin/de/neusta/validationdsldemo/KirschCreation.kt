@@ -4,7 +4,7 @@ import de.neusta.validationdsldemo.ValidationService.Companion.validate
 import de.neusta.validationdsldemo.ValidationService.ErrorsOccurred
 import de.neusta.validationdsldemo.ValidationService.Successful
 
-class KirschCreation() {
+class KirschCreation {
 
     private val kirschRepository: KirschRepository = KirschRepository()
 
@@ -15,12 +15,12 @@ class KirschCreation() {
     ): CreationResult {
         val domainObjectCreationResult = Kirsche(
             name = name,
-            color = color,
-            size = size,
+            farbe = color,
+            groesse = size,
         )
 
         val validationResult = validate(Kirsche::class) {
-            require("Kirsche already exists") {
+            require("Kirsche existiert schon") {
                 !kirschRepository.existsByNameAndColor(name = name, color = color)
             }
             requireNoErrors(domainObjectCreationResult)
