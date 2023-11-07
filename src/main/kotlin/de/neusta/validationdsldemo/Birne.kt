@@ -6,25 +6,25 @@ import de.neusta.validationdsldemo.ValidationService.Successful
 
 class Birne private constructor(
     val name: String,
-    val color: String,
-    val size: Int,
+    val farbe: String,
+    val groesse: Int,
 ) {
 
     companion object {
         operator fun invoke(
             name: String,
-            color: String,
-            size: Int,
+            farbe: String,
+            groesse: Int,
         ): CreationResult {
             val validationResult = validate(Birne::class) {
-                require("Name must not be blank") {
+                require("Name darf nicht leer sein") {
                     name.isNotBlank()
                 }
-                require("Color must not be blank") {
-                    color.isNotBlank()
+                require("Farbe darf nicht leer sein") {
+                    farbe.isNotBlank()
                 }
-                require("Size must be a positive number") {
-                    size > 0
+                require("Groesse muss größer als 0 sein") {
+                    groesse > 0
                 }
             }
 
@@ -33,8 +33,8 @@ class Birne private constructor(
                 is Successful -> Created(
                     birne = Birne(
                         name = name,
-                        color = color,
-                        size = size,
+                        farbe = farbe,
+                        groesse = groesse,
                     )
                 )
             }

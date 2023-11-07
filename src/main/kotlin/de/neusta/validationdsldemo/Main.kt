@@ -4,14 +4,14 @@ fun main(args: Array<String>) {
 
     val falscherApfel = Apfel(
         name = "",
-        color = " ",
-        size = 0,
+        farbe = " ",
+        groesse = 0,
     )
 
     val falscheBirne = Birne(
         name = "",
-        color = " ",
-        size = 0,
+        farbe = " ",
+        groesse = 0,
     )
 
     val falscheKirsche = KirschCreation().createKirsche(

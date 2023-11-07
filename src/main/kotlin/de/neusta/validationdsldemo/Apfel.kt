@@ -26,11 +26,11 @@ class Apfel private constructor(
                 )
             )
         } catch (exception: IllegalArgumentException) {
-            Failure(error = exception.message!!)
+            Error(message = exception.message!!)
         }
     }
 
     sealed class CreationResult
     class Created(val apfel: Apfel) : CreationResult()
-    class Failure(val error: String) : CreationResult()
+    class Error(val message: String) : CreationResult()
 }
