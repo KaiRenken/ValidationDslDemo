@@ -2,27 +2,27 @@ package de.neusta.validationdsldemo
 
 class Apfel private constructor(
     val name: String,
-    val color: String,
-    val size: Int,
+    val farbe: String,
+    val groesse: Int,
 ) {
 
     init {
-        require(name.isNotBlank()) { "Name must not be blank" }
-        require(color.isNotBlank()) { "Color must not be blank" }
-        require(size > 0) { "Size must be a positive number" }
+        require(name.isNotBlank()) { "Name darf nicht leer sein" }
+        require(farbe.isNotBlank()) { "Farbe darf nicht leer sein" }
+        require(groesse > 0) { "Groesse muss größer als 0 sein" }
     }
 
     companion object {
         operator fun invoke(
             name: String,
-            color: String,
-            size: Int,
+            farbe: String,
+            groesse: Int,
         ): CreationResult = try {
             Created(
                 apfel = Apfel(
                     name = name,
-                    color = color,
-                    size = size,
+                    farbe = farbe,
+                    groesse = groesse,
                 )
             )
         } catch (exception: IllegalArgumentException) {
