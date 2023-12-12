@@ -15,13 +15,13 @@ class ValidationService private constructor(
             val validationService = ValidationService()
             validationService.apply(block)
             if (validationService.errors.isEmpty()) return Success
-            return Error(messages = validationService.errors.toList())
+            return Error(errors = validationService.errors.toList())
         }
     }
 
     sealed class ValidationResult
     data object Success : ValidationResult()
-    class Error(val messages: List<String>) : ValidationResult()
+    class Error(val errors: List<String>) : ValidationResult()
 }
 
 class MultiValidationService private constructor(
@@ -29,17 +29,17 @@ class MultiValidationService private constructor(
     private var result: Any? = null
 ) {
     fun require(
-        msg: String,
+        message: String,
         checker: () -> Boolean,
     ) {
-        if (!checker.invoke()) errors.add(msg)
+        if (!checker.invoke()) errors.add(message)
     }
 
     fun requireNoErrors(
         validatable: Validatable
     ) {
         when (validatable) {
-            is Errors -> validatable.errors.forEach { errors.add(it) }
+            is Errors -> validatable.messages.forEach { errors.add(it) }
             is Success -> result = validatable.result
         }
     }
@@ -56,7 +56,7 @@ class MultiValidationService private constructor(
     interface Validatable
 
     interface Errors : Validatable {
-        val errors: List<String>
+        val messages: List<String>
     }
 
     interface Success : Validatable {

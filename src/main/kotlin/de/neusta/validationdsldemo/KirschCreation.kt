@@ -27,7 +27,7 @@ class KirschCreation {
         }
 
         return when (validationResult) {
-            is ErrorsOccurred -> Failure(errors = validationResult.errors)
+            is ErrorsOccurred -> Error(messages = validationResult.errors)
             is Successful -> {
                 val kirsche = (domainObjectCreationResult as Kirsche.Created).kirsche
                 kirschRepository.save(kirsche)
@@ -38,5 +38,5 @@ class KirschCreation {
 
     sealed class CreationResult
     class Created(val kirsche: Kirsche) : CreationResult()
-    class Failure(val errors: List<String>) : CreationResult()
+    class Error(val messages: List<String>) : CreationResult()
 }

@@ -27,7 +27,7 @@ class Birne private constructor(
             }
 
             return when (validationResult) {
-                is ValidationService.Error -> Error(messages = validationResult.messages)
+                is ValidationService.Error -> Error(messages = validationResult.errors)
                 is ValidationService.Success -> Created(
                     birne = Birne(
                         name = name,

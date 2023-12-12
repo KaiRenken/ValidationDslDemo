@@ -28,7 +28,7 @@ class Kirsche private constructor(
             }
 
             return when (validationResult) {
-                is ErrorsOccurred -> Failure(errors = validationResult.errors)
+                is ErrorsOccurred -> Error(messages = validationResult.errors)
                 is Successful -> Created(
                     kirsche = Kirsche(
                         name = name,
@@ -42,5 +42,5 @@ class Kirsche private constructor(
 
     sealed class CreationResult : Validatable
     class Created(val kirsche: Kirsche) : CreationResult()
-    class Failure(override val errors: List<String>) : CreationResult(), Errors
+    class Error(override val messages: List<String>) : CreationResult(), Errors
 }
