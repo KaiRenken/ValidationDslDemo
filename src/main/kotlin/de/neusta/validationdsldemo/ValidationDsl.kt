@@ -49,7 +49,7 @@ class MultiValidationService private constructor(
             val multiValidationService = MultiValidationService()
             multiValidationService.apply(block)
             if (multiValidationService.errors.isEmpty()) return Successful(result = multiValidationService.result)
-            return ErrorsOccurred(errors = multiValidationService.errors.toList())
+            return Error(errors = multiValidationService.errors.toList())
         }
     }
 
@@ -65,5 +65,5 @@ class MultiValidationService private constructor(
 
     sealed class ValidationResult
     class Successful(val result: Any?) : ValidationResult(), Validatable
-    class ErrorsOccurred(val errors: List<String>) : ValidationResult(), Validatable
+    class Error(val errors: List<String>) : ValidationResult(), Validatable
 }

@@ -1,7 +1,6 @@
 package de.neusta.validationdsldemo
 
 import de.neusta.validationdsldemo.MultiValidationService.Companion.validate
-import de.neusta.validationdsldemo.MultiValidationService.ErrorsOccurred
 import de.neusta.validationdsldemo.MultiValidationService.Successful
 
 class KirschCreation {
@@ -27,7 +26,7 @@ class KirschCreation {
         }
 
         return when (validationResult) {
-            is ErrorsOccurred -> Error(messages = validationResult.errors)
+            is MultiValidationService.Error -> Error(messages = validationResult.errors)
             is Successful -> {
                 val kirsche = (domainObjectCreationResult as Kirsche.Created).kirsche
                 kirschRepository.save(kirsche)

@@ -28,7 +28,7 @@ class Kirsche private constructor(
             }
 
             return when (validationResult) {
-                is ErrorsOccurred -> Error(messages = validationResult.errors)
+                is MultiValidationService.Error -> Error(messages = validationResult.errors)
                 is Successful -> Created(
                     kirsche = Kirsche(
                         name = name,
