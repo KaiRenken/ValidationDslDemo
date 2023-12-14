@@ -8,7 +8,9 @@ class Apfel private constructor(
 
     init {
         require(name.isNotBlank()) { "Name darf nicht leer sein" }
+
         require(farbe.isNotBlank()) { "Farbe darf nicht leer sein" }
+
         require(groesse > 0) { "Groesse muss größer als 0 sein" }
     }
 
@@ -18,6 +20,7 @@ class Apfel private constructor(
             farbe: String,
             groesse: Int,
         ): CreationResult = try {
+
             Created(
                 apfel = Apfel(
                     name = name,
@@ -25,6 +28,7 @@ class Apfel private constructor(
                     groesse = groesse,
                 )
             )
+
         } catch (exception: IllegalArgumentException) {
             Error(message = exception.message!!)
         }

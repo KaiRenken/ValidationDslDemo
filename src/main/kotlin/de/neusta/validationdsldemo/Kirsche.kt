@@ -19,16 +19,20 @@ class Kirsche private constructor(
                 require("Name darf nicht leer sein") {
                     name.isNotBlank()
                 }
+
                 require("Farbe darf nicht leer sein") {
                     farbe.isNotBlank()
                 }
+
                 require("Groesse muss größer als 0 sein") {
                     groesse > 0
                 }
             }
 
             return when (validationResult) {
+
                 is MultiValidationService.Error -> Error(messages = validationResult.errors)
+
                 is Successful -> Created(
                     kirsche = Kirsche(
                         name = name,
@@ -36,6 +40,7 @@ class Kirsche private constructor(
                         groesse = groesse,
                     )
                 )
+
             }
         }
     }

@@ -1,6 +1,6 @@
 package de.neusta.validationdsldemo
 
-fun main(args: Array<String>) {
+fun main() {
 
     val falscherApfel = Apfel(
         name = "",

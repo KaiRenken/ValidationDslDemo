@@ -14,20 +14,25 @@ class Birne private constructor(
             farbe: String,
             groesse: Int,
         ): CreationResult {
+
             val validationResult = validate {
                 require("Name darf nicht leer sein") {
                     name.isNotBlank()
                 }
+
                 require("Farbe darf nicht leer sein") {
                     farbe.isNotBlank()
                 }
+
                 require("Groesse muss größer als 0 sein") {
                     groesse > 0
                 }
             }
 
             return when (validationResult) {
+
                 is ValidationService.Error -> Error(messages = validationResult.errors)
+
                 is ValidationService.Success -> Created(
                     birne = Birne(
                         name = name,
@@ -35,6 +40,7 @@ class Birne private constructor(
                         groesse = groesse,
                     )
                 )
+
             }
         }
     }
