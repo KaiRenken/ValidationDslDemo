@@ -12,6 +12,7 @@ class ValidationService private constructor(
 
     companion object {
         fun validate(block: ValidationService.() -> Unit): ValidationResult {
+            
             val validationService = ValidationService()
             validationService.apply(block)
 
