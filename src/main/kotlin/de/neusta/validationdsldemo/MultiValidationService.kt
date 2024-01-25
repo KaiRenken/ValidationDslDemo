@@ -22,9 +22,12 @@ class MultiValidationService private constructor(
 
     companion object {
         fun validate(block: MultiValidationService.() -> Unit): ValidationResult {
+
             val multiValidationService = MultiValidationService()
             multiValidationService.apply(block)
+
             if (multiValidationService.errors.isEmpty()) return Successful(result = multiValidationService.result)
+
             return Error(errors = multiValidationService.errors.toList())
         }
     }
